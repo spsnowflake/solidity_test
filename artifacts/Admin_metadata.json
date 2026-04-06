@@ -1,0 +1,75 @@
+{
+	"compiler": {
+		"version": "0.8.34+commit.80d5c536"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "contract IBank",
+						"name": "bank",
+						"type": "address"
+					}
+				],
+				"name": "adminWithdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Admin.sol": "Admin"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Admin.sol": {
+			"keccak256": "0x6ce550ec9265d1e87518435eac418e719352e554406c0508b39d1ee10b05053c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b0d60cbb427c4bdda96f418ac46ae1f524607651a29c74a8339fe38f9a455f06",
+				"dweb:/ipfs/QmcJvimrvFRDZDLQacpajtkZNFCxVTUM7Z9m7JBMJxHFoY"
+			]
+		},
+		"contracts/Bank.sol": {
+			"keccak256": "0x43a7c09c51670247ca21b271d9bc8dd6b085d6e9df1cf9855025e4425f260b27",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a0e9bc57c43280f7bf4e7b6bdd815d1980e234efdf31fc32fa20a37aad7ff22f",
+				"dweb:/ipfs/QmXvw7VGP827dTBxhAJsLLUsNTQco2G1gwoFGMNfsw4YJs"
+			]
+		},
+		"contracts/Bigbank.sol": {
+			"keccak256": "0xfa520082c5dc3ceccd7081586ce49d6e129329a45640fe4e8a18663c79d81164",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f55747b6937ca3e9cb946e5b68273bb56c7c28dcb4878cda544e8f17e23b3b18",
+				"dweb:/ipfs/QmZNqf327XUAd1p8yzjQa7Ft1GFpPQfCRCUyNx4sCrSYFX"
+			]
+		}
+	},
+	"version": 1
+}

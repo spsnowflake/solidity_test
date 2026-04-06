@@ -6,11 +6,6 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
-				"stateMutability": "nonpayable",
-				"type": "constructor"
-			},
-			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -28,6 +23,19 @@
 				],
 				"name": "Received",
 				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newAdmin",
+						"type": "address"
+					}
+				],
+				"name": "changeAdmin",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			},
 			{
 				"inputs": [],
@@ -125,7 +133,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Bank.sol": "Bank"
+			"contracts/Bigbank.sol": "Bigbank"
 		},
 		"evmVersion": "osaka",
 		"libraries": {},
@@ -145,6 +153,14 @@
 			"urls": [
 				"bzz-raw://a0e9bc57c43280f7bf4e7b6bdd815d1980e234efdf31fc32fa20a37aad7ff22f",
 				"dweb:/ipfs/QmXvw7VGP827dTBxhAJsLLUsNTQco2G1gwoFGMNfsw4YJs"
+			]
+		},
+		"contracts/Bigbank.sol": {
+			"keccak256": "0xfa520082c5dc3ceccd7081586ce49d6e129329a45640fe4e8a18663c79d81164",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f55747b6937ca3e9cb946e5b68273bb56c7c28dcb4878cda544e8f17e23b3b18",
+				"dweb:/ipfs/QmZNqf327XUAd1p8yzjQa7Ft1GFpPQfCRCUyNx4sCrSYFX"
 			]
 		}
 	},

@@ -5,7 +5,7 @@ contract Bank{
     // 事件，打印本次转账 地址和存款金额
     event Received(address, uint);
     mapping (address=>uint)public savePrice;
-    address public owner ;
+    address internal  owner ;
     address[3] public top3User = [address(0),address(0),address(0)];
 
 // 合约的存款
@@ -17,6 +17,10 @@ contract Bank{
 
     function getTop3User()public view returns (address[3] memory){
         return top3User;
+    }
+
+    function getOwner() view external returns (address){
+        return owner;
     }
 
 
