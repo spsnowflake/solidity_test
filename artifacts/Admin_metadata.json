@@ -1,10 +1,15 @@
 {
 	"compiler": {
-		"version": "0.8.34+commit.80d5c536"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
 		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
 			{
 				"inputs": [
 					{
@@ -17,6 +22,23 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -34,7 +56,7 @@
 		"compilationTarget": {
 			"contracts/Admin.sol": "Admin"
 		},
-		"evmVersion": "osaka",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -47,27 +69,27 @@
 	},
 	"sources": {
 		"contracts/Admin.sol": {
-			"keccak256": "0x6ce550ec9265d1e87518435eac418e719352e554406c0508b39d1ee10b05053c",
+			"keccak256": "0x0836cfa3af62439549bfbbf5e458043c8645280eea8e896e817b35552543fd0a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b0d60cbb427c4bdda96f418ac46ae1f524607651a29c74a8339fe38f9a455f06",
-				"dweb:/ipfs/QmcJvimrvFRDZDLQacpajtkZNFCxVTUM7Z9m7JBMJxHFoY"
+				"bzz-raw://f7894e0631914048ec8897fb9ba81f7f64da23d4e92b01ab79eb06d95bff37da",
+				"dweb:/ipfs/QmZtPfvibm7pqimA6cBxUFycxiLTxM2hZEXYucpFFaPPif"
 			]
 		},
 		"contracts/Bank.sol": {
-			"keccak256": "0x43a7c09c51670247ca21b271d9bc8dd6b085d6e9df1cf9855025e4425f260b27",
+			"keccak256": "0x0fb8f5d3d8267b8b7ed173894964631d2754a44dd901a6bceee5c5b97677f9b0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a0e9bc57c43280f7bf4e7b6bdd815d1980e234efdf31fc32fa20a37aad7ff22f",
-				"dweb:/ipfs/QmXvw7VGP827dTBxhAJsLLUsNTQco2G1gwoFGMNfsw4YJs"
+				"bzz-raw://111d006a7aa9e8360473bc29b78192e5b79b9baaa35d5343b9db02dc3242d78d",
+				"dweb:/ipfs/QmRcukQb9eAt7UY5djQ1YFVTDfEbfAFCrigoYBS9KXP8vj"
 			]
 		},
 		"contracts/Bigbank.sol": {
-			"keccak256": "0xfa520082c5dc3ceccd7081586ce49d6e129329a45640fe4e8a18663c79d81164",
+			"keccak256": "0xfca5b842d412d54bb3637b557b7cce00a8fbae0c95ff5e2e679b6c19b4e915dc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f55747b6937ca3e9cb946e5b68273bb56c7c28dcb4878cda544e8f17e23b3b18",
-				"dweb:/ipfs/QmZNqf327XUAd1p8yzjQa7Ft1GFpPQfCRCUyNx4sCrSYFX"
+				"bzz-raw://b1ee1b4fa304d8c505df96890b6e2364bf5ae35f3247be0cdf0ba20ee10e4149",
+				"dweb:/ipfs/QmTgx7ih77dXVu144ABSgRyAkyDosNGVLVqCkWNaJY76NL"
 			]
 		}
 	},

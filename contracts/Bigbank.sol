@@ -8,15 +8,19 @@ interface IBank {
 
     function withdraw()external ;
 
-    function saveMoney()payable external ;
+    // function saveMoney()payable external ;
     receive() external payable;
 }
 
 contract Bigbank is Bank{
 
     modifier limitSavePrice(){
-        require(savePrice[msg.sender] >0.001 ether,"Bank: Min deposit 0.001 ETH");
+        require(msg.value >0.001 ether,"Bank: Min deposit 0.001 ETH");
         _;
+    }
+
+    function saveMoney() public payable override limitSavePrice{
+        super.saveMoney();
     }
 
     modifier onlyOwner(){
@@ -27,15 +31,6 @@ contract Bigbank is Bank{
     function changeAdmin(address newAdmin) public onlyOwner{
         owner = newAdmin;
     }
-
-
-
-
-
-    
-
-
-
 
 }
 

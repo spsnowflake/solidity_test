@@ -38,7 +38,6 @@
 		"gasEstimates": null,
 		"methodIdentifiers": {
 			"getTop3User()": "f9080ca4",
-			"saveMoney()": "2466de24",
 			"withdraw()": "3ccfd60b"
 		}
 	},
@@ -54,13 +53,6 @@
 				}
 			],
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "saveMoney",
-			"outputs": [],
-			"stateMutability": "payable",
 			"type": "function"
 		},
 		{

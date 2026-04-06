@@ -31,8 +31,8 @@ contract Bank{
         require(success, "Withdraw failed");
     }
 
-    function saveMoney()payable public  {
-        // require(msg.value>0, "value must be >0");
+    function saveMoney()payable virtual public  {
+        require(msg.value>0, "value must be >0");
         savePrice[msg.sender] += msg.value;
         for (uint8 i = 0;i<3;i++){
             if (top3User[i] == address(0)){

@@ -8,9 +8,24 @@ contract Admin {
 
     address internal owner;
 
-    function adminWithdraw(IBank bank)public {
+    constructor() {
+        owner = msg.sender; // 部署者是 Admin 合约的管理员
+    }
+
+    function getOwner()public view returns (address){
+        return owner;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Admin: Not the owner");
+        _;
+    }
+
+    function adminWithdraw(IBank bank)public onlyOwner {
         bank.withdraw();
     }
+
+    receive() external payable {}
 
 }
 

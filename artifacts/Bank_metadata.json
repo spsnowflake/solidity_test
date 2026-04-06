@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.34+commit.80d5c536"
+		"version": "0.8.30+commit.73712a01"
 	},
 	"language": "Solidity",
 	"output": {
@@ -127,7 +127,7 @@
 		"compilationTarget": {
 			"contracts/Bank.sol": "Bank"
 		},
-		"evmVersion": "osaka",
+		"evmVersion": "prague",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -140,11 +140,11 @@
 	},
 	"sources": {
 		"contracts/Bank.sol": {
-			"keccak256": "0x43a7c09c51670247ca21b271d9bc8dd6b085d6e9df1cf9855025e4425f260b27",
+			"keccak256": "0x0fb8f5d3d8267b8b7ed173894964631d2754a44dd901a6bceee5c5b97677f9b0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a0e9bc57c43280f7bf4e7b6bdd815d1980e234efdf31fc32fa20a37aad7ff22f",
-				"dweb:/ipfs/QmXvw7VGP827dTBxhAJsLLUsNTQco2G1gwoFGMNfsw4YJs"
+				"bzz-raw://111d006a7aa9e8360473bc29b78192e5b79b9baaa35d5343b9db02dc3242d78d",
+				"dweb:/ipfs/QmRcukQb9eAt7UY5djQ1YFVTDfEbfAFCrigoYBS9KXP8vj"
 			]
 		}
 	},
