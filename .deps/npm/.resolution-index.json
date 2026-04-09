@@ -47,5 +47,29 @@
         "file": "contracts/Bank.sol"
       }
     }
+  },
+  "contracts/Bank.sol": {
+    "__sources__": {
+      "contracts/Bank.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.30;\r\n\r\ncontract Bank{\r\n    // 事件，打印本次转账 地址和存款金额\r\n    event Received(address, uint);\r\n    mapping (address=>uint)public savePrice;\r\n    address internal  owner ;\r\n    address[3] public top3User = [address(0),address(0),address(0)];\r\n\r\n// 合约的存款\r\n    // uint counter;\r\n\r\n    constructor(){\r\n        owner = msg.sender;\r\n    }\r\n\r\n    function getTop3User()public view returns (address[3] memory){\r\n        return top3User;\r\n    }\r\n\r\n    function getOwner() view external returns (address){\r\n        return owner;\r\n    }\r\n\r\n\r\n// 只有管理员可以通过这个方法提取资金\r\n    function withdraw()public {\r\n        require(msg.sender == owner);\r\n        (bool success, ) = payable(owner).call{value:address(this).balance}(\"\");\r\n        require(success, \"Withdraw failed\");\r\n    }\r\n\r\n    function saveMoney()payable virtual public  {\r\n        require(msg.value>0, \"value must be >0\");\r\n        savePrice[msg.sender] += msg.value;\r\n        for (uint8 i = 0;i<3;i++){\r\n            if (top3User[i] == address(0)){\r\n                top3User[i] = msg.sender;\r\n                break;\r\n            }\r\n        }\r\n        // 先判断是否在前三名中\r\n        if (msg.sender == top3User[0] || msg.sender == top3User[1] || msg.sender == top3User[2]){\r\n            // 如果在，则可以直接去排序\r\n        }else {\r\n            // 直接跟第三名比，比第三名大就替代，然后再排序\r\n            if (savePrice[msg.sender] > savePrice[top3User[2]]) {\r\n                top3User[2] = msg.sender;\r\n            }\r\n        }\r\n        // 排序\r\n            if (savePrice[top3User[2]] > savePrice[top3User[1]]) {\r\n                (top3User[2], top3User[1]) = (top3User[1], top3User[2]);\r\n            }\r\n            if (savePrice[top3User[1]] > savePrice[top3User[0]]) {\r\n                (top3User[1], top3User[0]) = (top3User[0], top3User[1]);\r\n            }\r\n\r\n    }\r\n\r\n    receive() external payable { \r\n        emit Received(msg.sender, msg.value);\r\n    }\r\n\r\n}\r\n\r\n\r\n\r\n\r\n\r\n",
+        "file": "contracts/Bank.sol"
+      }
+    }
+  },
+  "contracts/BasdERC20.sol": {
+    "__sources__": {
+      "contracts/BasdERC20.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\n\r\ncontract BaseERC20 {\r\n\r\n    string public name; \r\n    string public symbol; \r\n    uint8 public decimals; \r\n\r\n    uint256 public totalSupply; \r\n\r\n    mapping (address => uint256) balances; \r\n\r\n    mapping (address => mapping (address => uint256)) allowances; \r\n\r\n    event Transfer(address indexed from, address indexed to, uint256 value);\r\n    event Approval(address indexed owner, address indexed spender, uint256 value);\r\n\r\n    constructor() { \r\n        // write your code here\r\n        // set name,symbol,decimals,totalSupply\r\n\r\n        balances[msg.sender] = totalSupply;  \r\n    }\r\n\r\n    function balanceOf(address _owner) public view returns (uint256 balance) {\r\n        // write your code here\r\n\r\n    }\r\n\r\n    function transfer(address _to, uint256 _value) public returns (bool success) {\r\n        // write your code here\r\n\r\n\r\n        emit Transfer(msg.sender, _to, _value);  \r\n        return true;   \r\n    }\r\n\r\n    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {\r\n        // write your code here\r\n\r\n        \r\n        emit Transfer(_from, _to, _value); \r\n        return true; \r\n    }\r\n\r\n    function approve(address _spender, uint256 _value) public returns (bool success) {\r\n        // write your code here\r\n\r\n\r\n        emit Approval(msg.sender, _spender, _value); \r\n        return true; \r\n    }\r\n\r\n    function allowance(address _owner, address _spender) public view returns (uint256 remaining) {   \r\n        // write your code here     \r\n\r\n    }\r\n}",
+        "file": "contracts/BasdERC20.sol"
+      }
+    }
+  },
+  "contracts/TokenBank.sol": {
+    "__sources__": {
+      "contracts/TokenBank.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ncontract TokenBank {\r\n\r\n    constructor(uint total){\r\n        balances[msg.sender] = total;\r\n    }\r\n\r\n    event Received(address, uint);\r\n\r\n    mapping (address => uint) public  balances;\r\n\r\n    function deposit(uint amount) external  {\r\n        require(amount >0,\"amount must >0\");\r\n        balances[msg.sender] = amount;\r\n        emit Received(msg.sender,amount);\r\n    }\r\n\r\n    function withdraw(uint amount) external {\r\n        require(amount >0,\"amount must >0\");\r\n        require(amount <= balances[msg.sender],\"amount must <= balances[msg.sender]\");\r\n        balances[msg.sender] -= amount;\r\n    }\r\n\r\n}\r\n\r\n\r\n",
+        "file": "contracts/TokenBank.sol"
+      }
+    }
   }
 }
