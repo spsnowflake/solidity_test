@@ -48,6 +48,14 @@
       }
     }
   },
+  "contracts/TokenBank.sol": {
+    "__sources__": {
+      "contracts/TokenBank.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ncontract TokenBank {\r\n\r\n    constructor(uint total){\r\n        balances[msg.sender] = total;\r\n    }\r\n\r\n    event Received(address, uint);\r\n\r\n    mapping (address => uint) public  balances;\r\n\r\n    function deposit(uint amount) external  {\r\n        require(amount >0,\"amount must >0\");\r\n        balances[msg.sender] = amount;\r\n        emit Received(msg.sender,amount);\r\n    }\r\n\r\n    function withdraw(uint amount) external {\r\n        require(amount >0,\"amount must >0\");\r\n        require(amount <= balances[msg.sender],\"amount must <= balances[msg.sender]\");\r\n        balances[msg.sender] -= amount;\r\n    }\r\n\r\n}\r\n\r\n\r\n",
+        "file": "contracts/TokenBank.sol"
+      }
+    }
+  },
   "contracts/Bank.sol": {
     "__sources__": {
       "contracts/Bank.sol": {
@@ -59,16 +67,8 @@
   "contracts/BasdERC20.sol": {
     "__sources__": {
       "contracts/BasdERC20.sol": {
-        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\n\r\ncontract BaseERC20 {\r\n\r\n    string public name; \r\n    string public symbol; \r\n    uint8 public decimals; \r\n\r\n    uint256 public totalSupply; \r\n\r\n    mapping (address => uint256) balances; \r\n\r\n    mapping (address => mapping (address => uint256)) allowances; \r\n\r\n    event Transfer(address indexed from, address indexed to, uint256 value);\r\n    event Approval(address indexed owner, address indexed spender, uint256 value);\r\n\r\n    constructor() { \r\n        // write your code here\r\n        // set name,symbol,decimals,totalSupply\r\n\r\n        balances[msg.sender] = totalSupply;  \r\n    }\r\n\r\n    function balanceOf(address _owner) public view returns (uint256 balance) {\r\n        // write your code here\r\n\r\n    }\r\n\r\n    function transfer(address _to, uint256 _value) public returns (bool success) {\r\n        // write your code here\r\n\r\n\r\n        emit Transfer(msg.sender, _to, _value);  \r\n        return true;   \r\n    }\r\n\r\n    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {\r\n        // write your code here\r\n\r\n        \r\n        emit Transfer(_from, _to, _value); \r\n        return true; \r\n    }\r\n\r\n    function approve(address _spender, uint256 _value) public returns (bool success) {\r\n        // write your code here\r\n\r\n\r\n        emit Approval(msg.sender, _spender, _value); \r\n        return true; \r\n    }\r\n\r\n    function allowance(address _owner, address _spender) public view returns (uint256 remaining) {   \r\n        // write your code here     \r\n\r\n    }\r\n}",
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\n\r\ncontract BaseERC20 {\r\n\r\n    string public name; \r\n    string public symbol; \r\n    uint8 public decimals; \r\n\r\n    uint256 public totalSupply; \r\n\r\n    mapping (address => uint256) balances; \r\n\r\n    mapping (address => mapping (address => uint256)) allowances; \r\n\r\n    event Transfer(address indexed from, address indexed to, uint256 value);\r\n    event Approval(address indexed owner, address indexed spender, uint256 value);\r\n\r\n    constructor() { \r\n        // write your code here\r\n        // set name,symbol,decimals,totalSupply\r\n        name = \"BaseERC20\";\r\n        symbol = \"BERC20\";\r\n        decimals = 18;\r\n        totalSupply = 100000000*10**decimals;\r\n\r\n        balances[msg.sender] = totalSupply;  \r\n    }\r\n\r\n    function balanceOf(address _owner) public view returns (uint256 balance) {\r\n        // write your code here\r\n        return balances[_owner];\r\n\r\n    }\r\n\r\n    function transfer(address _to, uint256 _value) public returns (bool success) {\r\n        // write your code here\r\n\r\n        require(_value<=balances[msg.sender],\"ERC20: transfer amount exceeds balance\");\r\n        require(_to != address(0),\"address must not be address(0)\");\r\n\r\n        balances[msg.sender]-=_value;\r\n        balances[_to]+=_value;\r\n\r\n        emit Transfer(msg.sender, _to, _value);  \r\n        return true;   \r\n    }\r\n\r\n    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {\r\n        // write your code here\r\n        require(_value<=balances[_from],\"ERC20: transfer amount exceeds balance\");\r\n        require(_value<=allowances[_from][msg.sender],\"ERC20: transfer amount exceeds allowance\");\r\n        require(_to!=address(0),\"address must not be address(0)\");\r\n        balances[_from]-=_value;\r\n        balances[_to]+=_value;\r\n        allowances[_from][msg.sender]-=_value;\r\n        \r\n        emit Transfer(_from, _to, _value); \r\n        return true; \r\n    }\r\n\r\n    function approve(address _spender, uint256 _value) public returns (bool success) {\r\n        // write your code here\r\n        allowances[msg.sender][_spender]=_value;\r\n        \r\n        emit Approval(msg.sender, _spender, _value); \r\n        return true; \r\n    }\r\n\r\n    function allowance(address _owner, address _spender) public view returns (uint256 remaining) {   \r\n        // write your code here     \r\n        return allowances[_owner][_spender];\r\n\r\n    }\r\n}",
         "file": "contracts/BasdERC20.sol"
-      }
-    }
-  },
-  "contracts/TokenBank.sol": {
-    "__sources__": {
-      "contracts/TokenBank.sol": {
-        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ncontract TokenBank {\r\n\r\n    constructor(uint total){\r\n        balances[msg.sender] = total;\r\n    }\r\n\r\n    event Received(address, uint);\r\n\r\n    mapping (address => uint) public  balances;\r\n\r\n    function deposit(uint amount) external  {\r\n        require(amount >0,\"amount must >0\");\r\n        balances[msg.sender] = amount;\r\n        emit Received(msg.sender,amount);\r\n    }\r\n\r\n    function withdraw(uint amount) external {\r\n        require(amount >0,\"amount must >0\");\r\n        require(amount <= balances[msg.sender],\"amount must <= balances[msg.sender]\");\r\n        balances[msg.sender] -= amount;\r\n    }\r\n\r\n}\r\n\r\n\r\n",
-        "file": "contracts/TokenBank.sol"
       }
     }
   }

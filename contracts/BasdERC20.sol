@@ -20,18 +20,28 @@ contract BaseERC20 {
     constructor() { 
         // write your code here
         // set name,symbol,decimals,totalSupply
+        name = "BaseERC20";
+        symbol = "BERC20";
+        decimals = 18;
+        totalSupply = 100000000*10**decimals;
 
         balances[msg.sender] = totalSupply;  
     }
 
     function balanceOf(address _owner) public view returns (uint256 balance) {
         // write your code here
+        return balances[_owner];
 
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
         // write your code here
 
+        require(_value<=balances[msg.sender],"ERC20: transfer amount exceeds balance");
+        require(_to != address(0),"address must not be address(0)");
+
+        balances[msg.sender]-=_value;
+        balances[_to]+=_value;
 
         emit Transfer(msg.sender, _to, _value);  
         return true;   
@@ -39,7 +49,12 @@ contract BaseERC20 {
 
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
         // write your code here
-
+        require(_value<=balances[_from],"ERC20: transfer amount exceeds balance");
+        require(_value<=allowances[_from][msg.sender],"ERC20: transfer amount exceeds allowance");
+        require(_to!=address(0),"address must not be address(0)");
+        balances[_from]-=_value;
+        balances[_to]+=_value;
+        allowances[_from][msg.sender]-=_value;
         
         emit Transfer(_from, _to, _value); 
         return true; 
@@ -47,14 +62,15 @@ contract BaseERC20 {
 
     function approve(address _spender, uint256 _value) public returns (bool success) {
         // write your code here
-
-
+        allowances[msg.sender][_spender]=_value;
+        
         emit Approval(msg.sender, _spender, _value); 
         return true; 
     }
 
     function allowance(address _owner, address _spender) public view returns (uint256 remaining) {   
         // write your code here     
+        return allowances[_owner][_spender];
 
     }
 }
