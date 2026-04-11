@@ -9,9 +9,9 @@ contract BaseERC20 {
     uint8 public decimals; 
 
     uint256 public totalSupply; 
-
+// 余额
     mapping (address => uint256) balances; 
-
+// 授权方授权被授权方多少token
     mapping (address => mapping (address => uint256)) allowances; 
 
     event Transfer(address indexed from, address indexed to, uint256 value);
@@ -27,13 +27,14 @@ contract BaseERC20 {
 
         balances[msg.sender] = totalSupply;  
     }
-
+// 任何人都能查询任何地址的余额
     function balanceOf(address _owner) public view returns (uint256 balance) {
         // write your code here
         return balances[_owner];
 
     }
 
+// 允许 token 所有者将拥有的token 发送给任何人
     function transfer(address _to, uint256 _value) public returns (bool success) {
         // write your code here
 
@@ -47,6 +48,7 @@ contract BaseERC20 {
         return true;   
     }
 
+// 允许被授权者去操作被授权的地址的token拿去消费
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
         // write your code here
         require(_value<=balances[_from],"ERC20: transfer amount exceeds balance");
@@ -60,14 +62,16 @@ contract BaseERC20 {
         return true; 
     }
 
+// 授权者去授权某个地址允许消费自己的指定数量的token
     function approve(address _spender, uint256 _value) public returns (bool success) {
         // write your code here
         allowances[msg.sender][_spender]=_value;
-        
+
         emit Approval(msg.sender, _spender, _value); 
         return true; 
     }
 
+// 允许任何人查看某个被授权者（地址）能够消费授权方消费多少token
     function allowance(address _owner, address _spender) public view returns (uint256 remaining) {   
         // write your code here     
         return allowances[_owner][_spender];

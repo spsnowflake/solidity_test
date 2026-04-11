@@ -8,9 +8,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "total",
-						"type": "uint256"
+						"internalType": "contract IERC20",
+						"name": "erc20_token",
+						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -32,7 +32,26 @@
 						"type": "uint256"
 					}
 				],
-				"name": "Received",
+				"name": "Deposit",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "Withdraw",
 				"type": "event"
 			},
 			{
@@ -65,6 +84,19 @@
 				"name": "deposit",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "erc20_address",
+				"outputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -109,11 +141,11 @@
 	},
 	"sources": {
 		"contracts/TokenBank.sol": {
-			"keccak256": "0x281939c8b691a363f918508ea28e1ea2c4a734721d4e6852e20c3510a37c3918",
+			"keccak256": "0xb8dd6e3314bb7093a7ed4337604a10917fe53a1c869a4925476bfc0a79aa3783",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://cde29a3107e2dc7d28a7cbbbd925befcb1878f3ac1348cb758749d2a97e3216e",
-				"dweb:/ipfs/QmTKRdc4vX2VTWHADeXzukUWmiA2t1GR7SNoYhbydzsJgC"
+				"bzz-raw://7d0b942b427bb5a725efd04ee7220f65b374ed7373fa0f1ed60b70674f36a89e",
+				"dweb:/ipfs/QmRs1QNmW1UDTtFLssREEVpan9crpCgZiYngh1NbxFFRFL"
 			]
 		}
 	},
