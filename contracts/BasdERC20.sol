@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "contracts/IERC20Interface.sol";
+// import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol";
 
 contract BaseERC20 {
 
@@ -27,6 +29,16 @@ contract BaseERC20 {
 
         balances[msg.sender] = totalSupply;  
     }
+
+    function transferWithCallback(address to,uint value)external returns (bool){
+        transfer(to,value);
+        if (to.code.length > 0){
+            bool success = IERC20(to).tokensReceived(msg.sender,value);
+            require(success,"No ERC20");
+        }
+        return true;
+    }
+
 // 任何人都能查询任何地址的余额
     function balanceOf(address _owner) public view returns (uint256 balance) {
         // write your code here

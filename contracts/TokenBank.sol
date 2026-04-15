@@ -2,14 +2,8 @@
 pragma solidity ^0.8.0;
 
 
-interface IERC20 {
-    function balanceOf(address _owner) external  view returns (uint256 balance);
-    function transfer(address _to, uint256 _value) external returns (bool success);
-    function transferFrom(address _from, address _to, uint256 _value) external returns (bool success);
-    function approve(address _spender, uint256 _value) external returns (bool success);
-    function allowance(address _owner, address _spender) external view returns (uint256 remaining);
-
-}
+import "contracts/IERC20Interface.sol";
+import "contracts/ITokenReceiver.sol";
 
 contract TokenBank {
     // 一开始就固定币种
@@ -21,6 +15,20 @@ contract TokenBank {
     event Deposit(address, uint);
     event Withdraw(address, uint);
     mapping (address => uint) public  balances;
+
+// 供合约调用的回调函数
+function tokensReceived(address from,uint value)external returns (bool){
+    if (msg.sender == address(erc20_address)){
+        balances[from] += value;
+        emit Deposit(from, value);
+        return true;
+    }else {
+        revert ("invalid");
+    }
+
+}
+
+
 
 // 用户存钱
     function deposit(uint amount) external  {

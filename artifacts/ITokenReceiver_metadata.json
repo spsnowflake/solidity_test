@@ -1,0 +1,70 @@
+{
+	"compiler": {
+		"version": "0.8.34+commit.80d5c536"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "tokensReceived",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/ITokenReceiver.sol": "ITokenReceiver"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/ITokenReceiver.sol": {
+			"keccak256": "0xf01285a28a32fe33b8632a2a797b8f2413c8c304570ab42cfbece3fbe162831b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ca88b35254f696d2447974274ec6aeec4fba6c07f50f5ecd648dcbc6a9563cce",
+				"dweb:/ipfs/QmbAcXMeNxWddXgV1HRpyQcVWMukshrVs2WJSdNNvw9i5X"
+			]
+		}
+	},
+	"version": 1
+}

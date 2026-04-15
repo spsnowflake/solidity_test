@@ -231,6 +231,30 @@
 				],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "transferWithCallback",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -261,11 +285,19 @@
 	},
 	"sources": {
 		"contracts/BasdERC20.sol": {
-			"keccak256": "0x55fc032b2a4175cd6713cd445a606fb9f6f8aacfee60b5e586d46d1e31e59f9e",
+			"keccak256": "0x17a4019db5150e261912f8bea22287ce9b55d25dac6b91f5e1a349fb08f45401",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://374fe766489bcf6937878dcdd1292338b64e7edf645d05d35b93520fe145c07b",
-				"dweb:/ipfs/QmQHjqjsnseN4gZK2rPDkLd3m8gYUCn4DkeE1jdYLHD4s1"
+				"bzz-raw://a89951809fabc40541443c364e980b120f3fafb1597ceb11ffa31ccfa77e8082",
+				"dweb:/ipfs/QmQ2nbDgFBLuwWgs4z4HfyeNcB2r6ebVA9tK3gUuWpSLwh"
+			]
+		},
+		"contracts/IERC20Interface.sol": {
+			"keccak256": "0xcbd1ed9837de05fa3bc11aa488b234cc63ef76c1d117ee2fb36756654a4a4d2e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a359dcea1c54cd82a92378855f9a5ad421094460fb1b9932b29a99d1bb7659bb",
+				"dweb:/ipfs/QmSDLyvTRnLLb2WAbPw2QzJznJTxNqtcGXgfhKckAVjsgp"
 			]
 		}
 	},
