@@ -173,12 +173,11 @@ contract BaseERC721 {
      */
     function getApproved(uint256 tokenId) public view returns (address) {
         require(
-            _owners[tokenId] == address(0),
+            /**code*/,
             "ERC721: approved query for nonexistent token"
         );
 
         /**code*/
-        return _tokenApprovals[tokenId];
     }
 
     /**
@@ -335,7 +334,7 @@ contract BaseERC721 {
      */
     function _approve(address to, uint256 tokenId) internal virtual {
         /**code*/
-        _tokenApprovals[tokenId] = to;
+
         emit Approval(ownerOf(tokenId), to, tokenId);
     }
 
