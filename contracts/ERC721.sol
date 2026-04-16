@@ -158,10 +158,10 @@ contract BaseERC721 {
      */
     function approve(address to, uint256 tokenId) public {
         address owner = ownerOf(tokenId);
-        require(/**code*/, "ERC721: approval to current owner");
+        require(to == owner, "ERC721: approval to current owner");
 
         require(
-            /**code*/,
+            msg.sender!=owner,
             "ERC721: approve caller is not owner nor approved for all"
         );
 
