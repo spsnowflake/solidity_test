@@ -20,15 +20,23 @@ contract BaseERC721 {
     string private _baseURI;
 
     // Mapping from token ID to owner address
+    //
+    // token 的归属
     mapping(uint256 => address) private _owners;
 
     // Mapping owner address to token count
+    //
+    // 该地址下有多少个 token
     mapping(address => uint256) private _balances;
 
     // Mapping from token ID to approved address
+    //
+    // 授权 token 给某个 地址
     mapping(uint256 => address) private _tokenApprovals;
 
     // Mapping from owner to operator approvals
+    //
+    // 对A地址下的所有操作权限授予B地址
     mapping(address => mapping(address => bool)) private _operatorApprovals;
 
     /**
@@ -74,6 +82,7 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC165-supportsInterface}.
+     * @dev 查询支持的接口
      */
     function supportsInterface(bytes4 interfaceId) public pure returns (bool) {
         return
@@ -99,6 +108,8 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC721Metadata-tokenURI}.
+     *
+     * 查询token的 uri
      */
     function tokenURI(uint256 tokenId) public view returns (string memory) {
         require(
@@ -117,6 +128,8 @@ contract BaseERC721 {
      * - `to` cannot be the zero address.
      * - `tokenId` must not exist.
      *
+     *  铸造token并转移到 to 地址。
+     *
      * Emits a {Transfer} event.
      */
     function mint(address to, uint256 tokenId) public {
@@ -129,6 +142,8 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC721-balanceOf}.
+     * 
+     * 该地址下有多少个 token
      */
     function balanceOf(address owner) public view returns (uint256) {
         require(owner != address(0),"address must be not address(0)");
@@ -137,6 +152,8 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC721-ownerOf}.
+     *
+     * 返回该 token 的拥有者 
      */
     function ownerOf(uint256 tokenId) public view returns (address) {
         require(_owners[tokenId] != address(0),"ERC721: invalid token ID");
@@ -145,6 +162,8 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC721-approve}.
+     *
+     * 将 token 授权给 to。
      */
     function approve(address to, uint256 tokenId) public {
         address owner = ownerOf(tokenId);
@@ -159,6 +178,8 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC721-getApproved}.
+     *
+     * 获取该 token 的具有权限操作的地址
      */
     function getApproved(uint256 tokenId) public view returns (address) {
         require(_exists(tokenId),"ERC721: approved query for nonexistent token");
@@ -167,7 +188,9 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC721-setApprovalForAll}.
-     */
+     *
+     * 开启/关闭 某地址具有所有操作权限
+     */ 
     function setApprovalForAll(address operator, bool approved) public {
         address sender = msg.sender;
         require(operator != sender, "ERC721: approve to caller");
@@ -178,6 +201,8 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC721-isApprovedForAll}.
+     *
+     * 查看 A 地址下的 B地址是否具有操作所有权限
      */
     function isApprovedForAll(
         address owner,
@@ -188,6 +213,8 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC721-transferFrom}.
+     *
+     * 普通转账
      */
     function transferFrom(address from, address to, uint256 tokenId) public {
         require(_isApprovedOrOwner(msg.sender, tokenId),"ERC721: transfer caller is not owner nor approved");
@@ -197,6 +224,8 @@ contract BaseERC721 {
 
     /**
      * @dev See {IERC721-safeTransferFrom}.
+     *
+     * 安全转账入口
      */
     function safeTransferFrom(
         address from,
@@ -260,6 +289,8 @@ contract BaseERC721 {
      *
      * Tokens start existing when they are minted (`_mint`),
      * and stop existing when they are burned (`_burn`).
+     *
+     * 该代币是否存在 
      */
     function _exists(uint256 tokenId) internal view returns (bool) {
         return _owners[tokenId] != address(0);
@@ -272,6 +303,8 @@ contract BaseERC721 {
      * Requirements:
      *
      * - `tokenId` must exist.
+     *
+     *  入参的 地址 是否是该 代币 的拥有者或者权限操作者
      */
     function _isApprovedOrOwner(
         address spender,
@@ -311,6 +344,8 @@ contract BaseERC721 {
      * @dev Approve `to` to operate on `tokenId`
      *
      * Emits a {Approval} event.
+     *
+     * 
      */
     function _approve(address to, uint256 tokenId) internal virtual {
         address owner = _owners[tokenId];
@@ -328,6 +363,8 @@ contract BaseERC721 {
      * @param tokenId uint256 ID of the token to be transferred
      * @param _data bytes optional data to send along with the call
      * @return bool whether the call correctly returned the expected magic value
+     *
+     * 在目标地址上调用{IERC721Receiver-onERC721RReceived}的内部函数。如果目标地址不是合约，则不会执行调用。
      */
     function _checkOnERC721Received(
         address from,
