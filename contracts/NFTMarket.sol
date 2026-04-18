@@ -14,6 +14,7 @@ contract NFTMarket{
 
 // tokenID 对应的  价格
     mapping (uint =>uint)public tokenPrice;
+    mapping (uint => address)public tokenSeller;
 
      constructor(IERC20 erc20,IERC721 erc721){
          erc20Token = erc20;
@@ -24,15 +25,24 @@ contract NFTMarket{
      function list(uint tokenId,uint amount) external  returns (bool){
         require(tokenId!=0 && amount >0,"tokenId must !=0, amount must >0");
         require(erc721Token.ownerOf(tokenId)==msg.sender,"you are not owner");
+        require(tokenPrice[tokenId] == 0, "already listed");
+        // 验证授权
+        require(erc721Token.getApproved(tokenId) == address(this) ||erc721Token.isApprovedForAll(msg.sender, address(this)),"NFTMarket: not approved");
         tokenPrice[tokenId] = amount;
+        tokenSeller[tokenId] = msg.sender;
         emit List(tokenId,msg.sender, amount);
         return true;
      }
 
 //   买家购买NFT
      function buyNFT(uint tokenID, uint amount) external returns (bool){
-        require(tokenID!=0 && amount >0,"tokenId must !=0, amount must >0");
+        require(tokenID!=0 && amount ==tokenPrice[tokenID],"tokenId must !=0, amount must == tokenPrice[tokenID]");
         address NFTOwnerOf = erc721Token.ownerOf(tokenID);
+        // 检查当前的 拥有者和储存的拥有者是否同一人
+        require(NFTOwnerOf == tokenSeller[tokenID],"The sellers are not the same address");
+        // 先删除状态
+        delete tokenPrice[tokenID];
+        delete tokenSeller[tokenID];
         // 通过ERC20购买，先转账
         bool result = erc20Token.transferFrom(msg.sender, NFTOwnerOf, amount);
         if (!result){
@@ -40,8 +50,7 @@ contract NFTMarket{
         }
         //  ERC721进行交易转让 NFT
         erc721Token. safeTransferFrom(NFTOwnerOf, msg.sender, tokenID);
-        // 交易后删除
-        delete tokenPrice[tokenID];
+
         emit BuyNFT(msg.sender,tokenID,amount);
 
         return true;
@@ -59,22 +68,32 @@ contract NFTMarket{
      function tokensReceived(address from,uint amount,bytes calldata data) external returns (bool){
         require(msg.sender == address(erc20Token), "only erc20Token can call this function");
         // 将 bytes 还原成 uint256 的 tokenId
-        uint256 tokenId = abi.decode(data, (uint256));
-        require(tokenPrice[tokenId]!=0,"Market: token not for sale");
-        require(amount>=tokenPrice[tokenId]," Market: insufficient amount");
+        uint256 tokenID = abi.decode(data, (uint256));
+        require(tokenPrice[tokenID]!=0,"Market: token not for sale");
+        require(amount>=tokenPrice[tokenID]," Market: insufficient amount");
+        address NFTOwnerOf = erc721Token.ownerOf(tokenID);
+        // 检查当前的 拥有者和储存的拥有者是否同一人
+        require(NFTOwnerOf == tokenSeller[tokenID],"The sellers are not the same address");
+        // 先缓存价格
+        uint256 price = tokenPrice[tokenID];  
         // 卖家
-        address seller = erc721Token.ownerOf(tokenId); 
+        address seller = tokenSeller[tokenID]; 
+        // 删除 NFT 价格
+        delete tokenPrice[tokenID];
+        delete tokenSeller[tokenID];
+
         // 把 NFT的钱转给卖家
-        erc20Token.transfer(seller,tokenPrice[tokenId]);
+        bool result = erc20Token.transfer(seller,price);
+        require(result,"Transfer to seller failed");
         // 多余的钱退给买家
-        if (amount>tokenPrice[tokenId]){
-            erc20Token.transfer(from,amount-tokenPrice[tokenId]);
+        if (amount>price){
+            bool result2 = erc20Token.transfer(from,amount-price);
+            require(result2," erc20Token.transfer is error");
         }
         // NFT 转让
-        erc721Token.safeTransferFrom(seller,from,tokenId);
-        // 删除 NFT 价格
-        delete tokenPrice[tokenId];
-        emit BuyNFT(from,tokenId,amount);
+        erc721Token.safeTransferFrom(seller,from,tokenID);
+
+        emit BuyNFT(from,tokenID,amount);
         return true;
      }
 }

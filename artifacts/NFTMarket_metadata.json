@@ -167,6 +167,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "tokenSeller",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "from",
 						"type": "address"
@@ -238,11 +257,11 @@
 			]
 		},
 		"contracts/NFTMarket.sol": {
-			"keccak256": "0xc69e11b04c35fff2fcdf200caa9489f448ddc5bb9f7f68128b92e89f23f3df13",
+			"keccak256": "0x27513cf2783a8d79f08724bd3870e3dddb2f956a2b522a629012a0d8e80712ff",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1b44fe0bc24ad10b5cf62da1ef946d0d4807f21eb63e57ac1f001fd5be8a60a1",
-				"dweb:/ipfs/QmYikpBotYmHYFTkk3M1NiELvNayApW9aqccWVNUyiDF1i"
+				"bzz-raw://3fd9055f35ca2d98fbac43dc4cd50a0ead795f155260a29b6f77ad5aca364e16",
+				"dweb:/ipfs/QmYSthGUkWg4bLWmJ3L61ZQU5zmGWXmwLsMZ6wdb9ngwXe"
 			]
 		}
 	},
